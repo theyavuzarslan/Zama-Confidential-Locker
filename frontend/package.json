@@ -8,6 +8,9 @@
     "start": "next start",
     "lint": "eslint"
   },
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "dependencies": {
     "@base-org/account": "^2.5.0",
     "@coinbase/wallet-sdk": "^4.3.7",
