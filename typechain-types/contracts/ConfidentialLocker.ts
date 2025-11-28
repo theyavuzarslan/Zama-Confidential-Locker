@@ -26,64 +26,89 @@ import type {
 export interface ConfidentialLockerInterface extends Interface {
   getFunction(
     nameOrSignature:
-      | "lock"
-      | "lockerPass"
-      | "locks"
-      | "nextLockId"
-      | "registry"
-      | "withdraw"
+      | "balances"
+      | "coprocessor"
+      | "deposit"
+      | "owner"
+      | "renounceOwnership"
+      | "requestUnlock"
+      | "requests"
+      | "transferOwnership"
+      | "unlockCallback"
   ): FunctionFragment;
 
   getEvent(
-    nameOrSignatureOrTopic: "LockCreated" | "LockWithdrawn"
+    nameOrSignatureOrTopic:
+      | "Deposit"
+      | "OwnershipTransferred"
+      | "UnlockRequested"
+      | "UnlockResult"
+      | "Withdrawal"
   ): EventFragment;
 
   encodeFunctionData(
-    functionFragment: "lock",
-    values: [
-      AddressLike,
-      BytesLike,
-      BytesLike,
-      BytesLike,
-      BytesLike,
-      BytesLike,
-      BytesLike
-    ]
+    functionFragment: "balances",
+    values: [AddressLike]
   ): string;
   encodeFunctionData(
-    functionFragment: "lockerPass",
+    functionFragment: "coprocessor",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "locks", values: [BigNumberish]): string;
+  encodeFunctionData(functionFragment: "deposit", values?: undefined): string;
+  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "nextLockId",
+    functionFragment: "renounceOwnership",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "registry", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "withdraw",
-    values: [BigNumberish, BigNumberish]
+    functionFragment: "requestUnlock",
+    values: [BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "requests",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "transferOwnership",
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "unlockCallback",
+    values: [BigNumberish, boolean]
   ): string;
 
-  decodeFunctionResult(functionFragment: "lock", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "lockerPass", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "locks", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "nextLockId", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "registry", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "balances", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "coprocessor",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "renounceOwnership",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "requestUnlock",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "requests", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "transferOwnership",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "unlockCallback",
+    data: BytesLike
+  ): Result;
 }
 
-export namespace LockCreatedEvent {
-  export type InputTuple = [
-    lockId: BigNumberish,
-    owner: AddressLike,
-    token: AddressLike
-  ];
-  export type OutputTuple = [lockId: bigint, owner: string, token: string];
+export namespace DepositEvent {
+  export type InputTuple = [user: AddressLike, amount: BigNumberish];
+  export type OutputTuple = [user: string, amount: bigint];
   export interface OutputObject {
-    lockId: bigint;
-    owner: string;
-    token: string;
+    user: string;
+    amount: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -91,12 +116,51 @@ export namespace LockCreatedEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export namespace LockWithdrawnEvent {
-  export type InputTuple = [lockId: BigNumberish, owner: AddressLike];
-  export type OutputTuple = [lockId: bigint, owner: string];
+export namespace OwnershipTransferredEvent {
+  export type InputTuple = [previousOwner: AddressLike, newOwner: AddressLike];
+  export type OutputTuple = [previousOwner: string, newOwner: string];
   export interface OutputObject {
-    lockId: bigint;
-    owner: string;
+    previousOwner: string;
+    newOwner: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace UnlockRequestedEvent {
+  export type InputTuple = [requestId: BigNumberish, user: AddressLike];
+  export type OutputTuple = [requestId: bigint, user: string];
+  export interface OutputObject {
+    requestId: bigint;
+    user: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace UnlockResultEvent {
+  export type InputTuple = [requestId: BigNumberish, success: boolean];
+  export type OutputTuple = [requestId: bigint, success: boolean];
+  export interface OutputObject {
+    requestId: bigint;
+    success: boolean;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace WithdrawalEvent {
+  export type InputTuple = [user: AddressLike, amount: BigNumberish];
+  export type OutputTuple = [user: string, amount: bigint];
+  export interface OutputObject {
+    user: string;
+    amount: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -147,42 +211,42 @@ export interface ConfidentialLocker extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
-  lock: TypedContractMethod<
-    [
-      _token: AddressLike,
-      _encryptedAmount: BytesLike,
-      _amountProof: BytesLike,
-      _encryptedTime: BytesLike,
-      _timeProof: BytesLike,
-      _encryptedKPI: BytesLike,
-      _kpiProof: BytesLike
-    ],
+  balances: TypedContractMethod<[arg0: AddressLike], [bigint], "view">;
+
+  coprocessor: TypedContractMethod<[], [string], "view">;
+
+  deposit: TypedContractMethod<[], [void], "payable">;
+
+  owner: TypedContractMethod<[], [string], "view">;
+
+  renounceOwnership: TypedContractMethod<[], [void], "nonpayable">;
+
+  requestUnlock: TypedContractMethod<
+    [encryptedKPI: BytesLike],
     [void],
     "nonpayable"
   >;
 
-  lockerPass: TypedContractMethod<[], [string], "view">;
-
-  locks: TypedContractMethod<
+  requests: TypedContractMethod<
     [arg0: BigNumberish],
     [
-      [string, string, string, string, boolean] & {
-        unlockTime: string;
-        targetKPI: string;
-        amount: string;
-        token: string;
-        withdrawn: boolean;
+      [string, bigint, boolean] & {
+        user: string;
+        amount: bigint;
+        pending: boolean;
       }
     ],
     "view"
   >;
 
-  nextLockId: TypedContractMethod<[], [bigint], "view">;
+  transferOwnership: TypedContractMethod<
+    [newOwner: AddressLike],
+    [void],
+    "nonpayable"
+  >;
 
-  registry: TypedContractMethod<[], [string], "view">;
-
-  withdraw: TypedContractMethod<
-    [_lockId: BigNumberish, _currentKPI: BigNumberish],
+  unlockCallback: TypedContractMethod<
+    [requestId: BigNumberish, result: boolean],
     [void],
     "nonpayable"
   >;
@@ -192,88 +256,137 @@ export interface ConfidentialLocker extends BaseContract {
   ): T;
 
   getFunction(
-    nameOrSignature: "lock"
-  ): TypedContractMethod<
-    [
-      _token: AddressLike,
-      _encryptedAmount: BytesLike,
-      _amountProof: BytesLike,
-      _encryptedTime: BytesLike,
-      _timeProof: BytesLike,
-      _encryptedKPI: BytesLike,
-      _kpiProof: BytesLike
-    ],
-    [void],
-    "nonpayable"
-  >;
+    nameOrSignature: "balances"
+  ): TypedContractMethod<[arg0: AddressLike], [bigint], "view">;
   getFunction(
-    nameOrSignature: "lockerPass"
+    nameOrSignature: "coprocessor"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
-    nameOrSignature: "locks"
+    nameOrSignature: "deposit"
+  ): TypedContractMethod<[], [void], "payable">;
+  getFunction(
+    nameOrSignature: "owner"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "renounceOwnership"
+  ): TypedContractMethod<[], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "requestUnlock"
+  ): TypedContractMethod<[encryptedKPI: BytesLike], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "requests"
   ): TypedContractMethod<
     [arg0: BigNumberish],
     [
-      [string, string, string, string, boolean] & {
-        unlockTime: string;
-        targetKPI: string;
-        amount: string;
-        token: string;
-        withdrawn: boolean;
+      [string, bigint, boolean] & {
+        user: string;
+        amount: bigint;
+        pending: boolean;
       }
     ],
     "view"
   >;
   getFunction(
-    nameOrSignature: "nextLockId"
-  ): TypedContractMethod<[], [bigint], "view">;
+    nameOrSignature: "transferOwnership"
+  ): TypedContractMethod<[newOwner: AddressLike], [void], "nonpayable">;
   getFunction(
-    nameOrSignature: "registry"
-  ): TypedContractMethod<[], [string], "view">;
-  getFunction(
-    nameOrSignature: "withdraw"
+    nameOrSignature: "unlockCallback"
   ): TypedContractMethod<
-    [_lockId: BigNumberish, _currentKPI: BigNumberish],
+    [requestId: BigNumberish, result: boolean],
     [void],
     "nonpayable"
   >;
 
   getEvent(
-    key: "LockCreated"
+    key: "Deposit"
   ): TypedContractEvent<
-    LockCreatedEvent.InputTuple,
-    LockCreatedEvent.OutputTuple,
-    LockCreatedEvent.OutputObject
+    DepositEvent.InputTuple,
+    DepositEvent.OutputTuple,
+    DepositEvent.OutputObject
   >;
   getEvent(
-    key: "LockWithdrawn"
+    key: "OwnershipTransferred"
   ): TypedContractEvent<
-    LockWithdrawnEvent.InputTuple,
-    LockWithdrawnEvent.OutputTuple,
-    LockWithdrawnEvent.OutputObject
+    OwnershipTransferredEvent.InputTuple,
+    OwnershipTransferredEvent.OutputTuple,
+    OwnershipTransferredEvent.OutputObject
+  >;
+  getEvent(
+    key: "UnlockRequested"
+  ): TypedContractEvent<
+    UnlockRequestedEvent.InputTuple,
+    UnlockRequestedEvent.OutputTuple,
+    UnlockRequestedEvent.OutputObject
+  >;
+  getEvent(
+    key: "UnlockResult"
+  ): TypedContractEvent<
+    UnlockResultEvent.InputTuple,
+    UnlockResultEvent.OutputTuple,
+    UnlockResultEvent.OutputObject
+  >;
+  getEvent(
+    key: "Withdrawal"
+  ): TypedContractEvent<
+    WithdrawalEvent.InputTuple,
+    WithdrawalEvent.OutputTuple,
+    WithdrawalEvent.OutputObject
   >;
 
   filters: {
-    "LockCreated(uint256,address,address)": TypedContractEvent<
-      LockCreatedEvent.InputTuple,
-      LockCreatedEvent.OutputTuple,
-      LockCreatedEvent.OutputObject
+    "Deposit(address,uint256)": TypedContractEvent<
+      DepositEvent.InputTuple,
+      DepositEvent.OutputTuple,
+      DepositEvent.OutputObject
     >;
-    LockCreated: TypedContractEvent<
-      LockCreatedEvent.InputTuple,
-      LockCreatedEvent.OutputTuple,
-      LockCreatedEvent.OutputObject
+    Deposit: TypedContractEvent<
+      DepositEvent.InputTuple,
+      DepositEvent.OutputTuple,
+      DepositEvent.OutputObject
     >;
 
-    "LockWithdrawn(uint256,address)": TypedContractEvent<
-      LockWithdrawnEvent.InputTuple,
-      LockWithdrawnEvent.OutputTuple,
-      LockWithdrawnEvent.OutputObject
+    "OwnershipTransferred(address,address)": TypedContractEvent<
+      OwnershipTransferredEvent.InputTuple,
+      OwnershipTransferredEvent.OutputTuple,
+      OwnershipTransferredEvent.OutputObject
     >;
-    LockWithdrawn: TypedContractEvent<
-      LockWithdrawnEvent.InputTuple,
-      LockWithdrawnEvent.OutputTuple,
-      LockWithdrawnEvent.OutputObject
+    OwnershipTransferred: TypedContractEvent<
+      OwnershipTransferredEvent.InputTuple,
+      OwnershipTransferredEvent.OutputTuple,
+      OwnershipTransferredEvent.OutputObject
+    >;
+
+    "UnlockRequested(uint256,address)": TypedContractEvent<
+      UnlockRequestedEvent.InputTuple,
+      UnlockRequestedEvent.OutputTuple,
+      UnlockRequestedEvent.OutputObject
+    >;
+    UnlockRequested: TypedContractEvent<
+      UnlockRequestedEvent.InputTuple,
+      UnlockRequestedEvent.OutputTuple,
+      UnlockRequestedEvent.OutputObject
+    >;
+
+    "UnlockResult(uint256,bool)": TypedContractEvent<
+      UnlockResultEvent.InputTuple,
+      UnlockResultEvent.OutputTuple,
+      UnlockResultEvent.OutputObject
+    >;
+    UnlockResult: TypedContractEvent<
+      UnlockResultEvent.InputTuple,
+      UnlockResultEvent.OutputTuple,
+      UnlockResultEvent.OutputObject
+    >;
+
+    "Withdrawal(address,uint256)": TypedContractEvent<
+      WithdrawalEvent.InputTuple,
+      WithdrawalEvent.OutputTuple,
+      WithdrawalEvent.OutputObject
+    >;
+    Withdrawal: TypedContractEvent<
+      WithdrawalEvent.InputTuple,
+      WithdrawalEvent.OutputTuple,
+      WithdrawalEvent.OutputObject
     >;
   };
 }

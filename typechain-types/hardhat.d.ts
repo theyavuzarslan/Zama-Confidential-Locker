@@ -110,6 +110,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IConfidentialERC20__factory>;
     getContractFactory(
+      name: "ICoprocessor",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ICoprocessor__factory>;
+    getContractFactory(
       name: "IMockDEX",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IMockDEX__factory>;
@@ -121,6 +125,10 @@ declare module "hardhat/types/runtime" {
       name: "MockConfidentialERC20",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.MockConfidentialERC20__factory>;
+    getContractFactory(
+      name: "MockCoprocessor",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.MockCoprocessor__factory>;
     getContractFactory(
       name: "MockDEX",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -247,6 +255,11 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.IConfidentialERC20>;
     getContractAt(
+      name: "ICoprocessor",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ICoprocessor>;
+    getContractAt(
       name: "IMockDEX",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
@@ -261,6 +274,11 @@ declare module "hardhat/types/runtime" {
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.MockConfidentialERC20>;
+    getContractAt(
+      name: "MockCoprocessor",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.MockCoprocessor>;
     getContractAt(
       name: "MockDEX",
       address: string | ethers.Addressable,
@@ -364,6 +382,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IConfidentialERC20>;
     deployContract(
+      name: "ICoprocessor",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ICoprocessor>;
+    deployContract(
       name: "IMockDEX",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IMockDEX>;
@@ -375,6 +397,10 @@ declare module "hardhat/types/runtime" {
       name: "MockConfidentialERC20",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.MockConfidentialERC20>;
+    deployContract(
+      name: "MockCoprocessor",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.MockCoprocessor>;
     deployContract(
       name: "MockDEX",
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -501,6 +527,11 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IConfidentialERC20>;
     deployContract(
+      name: "ICoprocessor",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ICoprocessor>;
+    deployContract(
       name: "IMockDEX",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -515,6 +546,11 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.MockConfidentialERC20>;
+    deployContract(
+      name: "MockCoprocessor",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.MockCoprocessor>;
     deployContract(
       name: "MockDEX",
       args: any[],

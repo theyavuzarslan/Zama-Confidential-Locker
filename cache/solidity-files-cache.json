@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/0xatakan/Desktop/compliant-fhe-mixer/contracts/ConfidentialLocker.sol": {
-      "lastModificationDate": 1764024848987,
-      "contentHash": "c8387878398caf81f65912e145f07153",
+      "lastModificationDate": 1764347513832,
+      "contentHash": "48e1e7abc5fec736d6a7f1404005d4fa",
       "sourceName": "contracts/ConfidentialLocker.sol",
       "solcConfig": {
         "version": "0.8.24",
@@ -30,12 +30,8 @@
         }
       },
       "imports": [
-        "@fhevm/solidity/lib/FHE.sol",
-        "encrypted-types/EncryptedTypes.sol",
-        "./IConfidentialERC20.sol",
-        "./LockerPass.sol",
-        "./IComplianceRegistry.sol",
-        "@openzeppelin/contracts/utils/ReentrancyGuard.sol"
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "./ICoprocessor.sol"
       ],
       "versionPragmas": [
         "^0.8.24"
@@ -1144,6 +1140,80 @@
       ],
       "artifacts": [
         "IERC20"
+      ]
+    },
+    "/Users/0xatakan/Desktop/compliant-fhe-mixer/contracts/ICoprocessor.sol": {
+      "lastModificationDate": 1764347413137,
+      "contentHash": "ec17bc10569be4082e2eb05da8e704f0",
+      "sourceName": "contracts/ICoprocessor.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.24"
+      ],
+      "artifacts": [
+        "ICoprocessor"
+      ]
+    },
+    "/Users/0xatakan/Desktop/compliant-fhe-mixer/contracts/MockCoprocessor.sol": {
+      "lastModificationDate": 1764347417035,
+      "contentHash": "45af85d6fbdb0ae7aaf99e4a5f8ab471",
+      "sourceName": "contracts/MockCoprocessor.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./ICoprocessor.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.24"
+      ],
+      "artifacts": [
+        "MockCoprocessor"
       ]
     }
   }
