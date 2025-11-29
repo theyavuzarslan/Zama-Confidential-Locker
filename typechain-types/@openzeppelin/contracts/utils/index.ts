@@ -5,5 +5,4 @@ import type * as introspection from "./introspection";
 export type { introspection };
 import type * as math from "./math";
 export type { math };
-export type { ReentrancyGuard } from "./ReentrancyGuard";
 export type { Strings } from "./Strings";

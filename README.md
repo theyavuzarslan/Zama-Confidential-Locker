@@ -98,10 +98,14 @@ sequenceDiagram
 
 | Contract | Address | Network |
 | :--- | :--- | :--- |
-| `LockerPass` | 0x5d12cd5A65788F1C52c4AB2576228E055ff125aA | Ethereum Sepolia |
-| `ComplianceRegistry` | 0xC6D0135a3C34B7125d2da0cD44Eb188EbF28A463 | Ethereum Sepolia |
-| `ConfidentialLocker` | 0x6c8C63399aC8A2e33dF011d15b2A28989Cdf058e | Ethereum Sepolia |
-| `ConfidentialBuyback` | 0xcD81989cf7408E8CC3a0aF79b9E814bB13a3d6cd | Ethereum Sepolia |
+| `LockerPass` | 0xE65ae7830320E0aD33D637FF866d891cb9cD6ca5 | Ethereum Sepolia |
+| `ComplianceRegistry` | 0x3DC08d8d1C12E2f1085609aaa65a5A9fc2FFDd27 | Ethereum Sepolia |
+| `ConfidentialLocker` | 0x9570CA7455a17d9403E07fbDE90d0D169aD855eB | Ethereum Sepolia |
+| `ConfidentialBuyback` | 0xC4D1CB0284cF0d6EbF18EA172877fcf93399f591 | Ethereum Sepolia |
+| `MockCoprocessor` | 0xFC48787c9F38Fc0eF9b6bC55ebF6E37b95b75100 | Ethereum Sepolia |
+| `MockDEX` | 0xB96EF871B69EeeB94dC83D8317d9a418A770C82F | Ethereum Sepolia |
+| `MockConfidentialERC20` | 0x25E9bc2bba0Eb5e278B245b162e64efFEe9e0F24 | Ethereum Sepolia |
+
 
 ## 📦 Getting Started
 
