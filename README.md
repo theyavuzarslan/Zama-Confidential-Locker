@@ -98,10 +98,10 @@ sequenceDiagram
 
 | Contract | Address | Network |
 | :--- | :--- | :--- |
-| `LockerPass` | *Pending Deployment* | Zama Devnet |
-| `ComplianceRegistry` | *Pending Deployment* | Zama Devnet |
-| `ConfidentialLocker` | *Pending Deployment* | Zama Devnet |
-| `ConfidentialBuyback` | *Pending Deployment* | Zama Devnet |
+| `LockerPass` | 0x5d12cd5A65788F1C52c4AB2576228E055ff125aA | Ethereum Sepolia |
+| `ComplianceRegistry` | 0xC6D0135a3C34B7125d2da0cD44Eb188EbF28A463 | Ethereum Sepolia |
+| `ConfidentialLocker` | 0x6c8C63399aC8A2e33dF011d15b2A28989Cdf058e | Ethereum Sepolia |
+| `ConfidentialBuyback` | 0xcD81989cf7408E8CC3a0aF79b9E814bB13a3d6cd | Ethereum Sepolia |
 
 ## 📦 Getting Started
 
