@@ -33,6 +33,10 @@ describe("ConfidentialLocker (Async Coprocessor)", function () {
         // In a real app, this would be an encrypted buffer. For mock, any bytes work.
         const dummyEncryptedKPI = ethers.toUtf8Bytes("dummy encrypted data");
 
+        // Set a dummy threshold first (optional, but good for coverage)
+        const dummyThreshold = ethers.toUtf8Bytes("dummy threshold");
+        await locker.connect(owner).setMinKPIThreshold(dummyThreshold);
+
         const tx = await locker.connect(user).requestUnlock(dummyEncryptedKPI);
         const receipt = await tx.wait();
 

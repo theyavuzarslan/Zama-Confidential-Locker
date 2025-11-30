@@ -16,6 +16,9 @@ contract ConfidentialLocker is Ownable {
     mapping(address => uint256) public balances;
     mapping(uint256 => Request) public requests;
 
+    // Encrypted threshold stored as bytes (to be processed by Coprocessor)
+    bytes public encryptedMinKPIThreshold;
+
     event Deposit(address indexed user, uint256 amount);
     event UnlockRequested(uint256 indexed requestId, address indexed user);
     event UnlockResult(uint256 indexed requestId, bool success);
@@ -23,6 +26,10 @@ contract ConfidentialLocker is Ownable {
 
     constructor(address _coprocessor) Ownable(msg.sender) {
         coprocessor = ICoprocessor(_coprocessor);
+    }
+
+    function setMinKPIThreshold(bytes calldata _encryptedThreshold) external onlyOwner {
+        encryptedMinKPIThreshold = _encryptedThreshold;
     }
 
     function deposit() external payable {
@@ -38,8 +45,8 @@ contract ConfidentialLocker is Ownable {
         require(amount > 0, "No balance to withdraw");
 
         // Encode the input for the Coprocessor
-        // In a real scenario, we might pass the encryptedKPI and the condition (e.g., threshold)
-        bytes memory input = abi.encode(msg.sender, encryptedKPI);
+        // We pass: User Address, User's Encrypted KPI, and the Contract's Encrypted Threshold
+        bytes memory input = abi.encode(msg.sender, encryptedKPI, encryptedMinKPIThreshold);
 
         // Send request to Coprocessor
         uint256 requestId = coprocessor.request(input, this.unlockCallback.selector);

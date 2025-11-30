@@ -29,10 +29,12 @@ export interface ConfidentialLockerInterface extends Interface {
       | "balances"
       | "coprocessor"
       | "deposit"
+      | "encryptedMinKPIThreshold"
       | "owner"
       | "renounceOwnership"
       | "requestUnlock"
       | "requests"
+      | "setMinKPIThreshold"
       | "transferOwnership"
       | "unlockCallback"
   ): FunctionFragment;
@@ -55,6 +57,10 @@ export interface ConfidentialLockerInterface extends Interface {
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "deposit", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "encryptedMinKPIThreshold",
+    values?: undefined
+  ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "renounceOwnership",
@@ -67,6 +73,10 @@ export interface ConfidentialLockerInterface extends Interface {
   encodeFunctionData(
     functionFragment: "requests",
     values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setMinKPIThreshold",
+    values: [BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "transferOwnership",
@@ -83,6 +93,10 @@ export interface ConfidentialLockerInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "encryptedMinKPIThreshold",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "renounceOwnership",
@@ -93,6 +107,10 @@ export interface ConfidentialLockerInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "requests", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "setMinKPIThreshold",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "transferOwnership",
     data: BytesLike
@@ -217,6 +235,8 @@ export interface ConfidentialLocker extends BaseContract {
 
   deposit: TypedContractMethod<[], [void], "payable">;
 
+  encryptedMinKPIThreshold: TypedContractMethod<[], [string], "view">;
+
   owner: TypedContractMethod<[], [string], "view">;
 
   renounceOwnership: TypedContractMethod<[], [void], "nonpayable">;
@@ -237,6 +257,12 @@ export interface ConfidentialLocker extends BaseContract {
       }
     ],
     "view"
+  >;
+
+  setMinKPIThreshold: TypedContractMethod<
+    [_encryptedThreshold: BytesLike],
+    [void],
+    "nonpayable"
   >;
 
   transferOwnership: TypedContractMethod<
@@ -265,6 +291,9 @@ export interface ConfidentialLocker extends BaseContract {
     nameOrSignature: "deposit"
   ): TypedContractMethod<[], [void], "payable">;
   getFunction(
+    nameOrSignature: "encryptedMinKPIThreshold"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
     nameOrSignature: "owner"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
@@ -285,6 +314,13 @@ export interface ConfidentialLocker extends BaseContract {
       }
     ],
     "view"
+  >;
+  getFunction(
+    nameOrSignature: "setMinKPIThreshold"
+  ): TypedContractMethod<
+    [_encryptedThreshold: BytesLike],
+    [void],
+    "nonpayable"
   >;
   getFunction(
     nameOrSignature: "transferOwnership"
